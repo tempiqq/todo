@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { FilterStatus } from '../utils/FilterStatus';
 import type { Todo } from '../types/Todo';
 
-export const useTodoMemo = (todos: Todo[], filter: FilterStatus) => {
+export const useTodoMemo = (todos: Todo[], filter?: FilterStatus) => {
   const visibleTodos = useMemo(() => {
 
     switch (filter) {
