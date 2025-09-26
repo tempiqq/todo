@@ -16,6 +16,7 @@ export const Header = () => {
   } = useTodoStore();
 
   const { allCompleted, showTodos, remainTodos } = useTodoMemo(todos, filter);
+  
   return (
     <>
       <header className="flex items-center justify-between px-6">
