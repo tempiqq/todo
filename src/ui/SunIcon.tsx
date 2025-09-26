@@ -14,7 +14,12 @@ export const SunIcon = ({ className }: SunIconProps) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      className={`
+        hover:scale-110 
+        transition-all 
+        duration-300 
+        ${className || ''}
+      `}
     >
       <circle
         cx="12"

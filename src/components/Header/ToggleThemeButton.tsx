@@ -1,7 +1,6 @@
-import { useThemeStore } from "../../store/useThemeStore";
-import { MoonIcon } from "../../ui/MoonIcon";
-import { SunIcon } from "../../ui/SunIcon";
-
+import { useThemeStore } from '../../store/useThemeStore';
+import { MoonIcon } from '../../ui/MoonIcon';
+import { SunIcon } from '../../ui/SunIcon';
 
 export const ToggleThemeButton = () => {
   const { theme, toggleTheme } = useThemeStore();
@@ -15,17 +14,8 @@ export const ToggleThemeButton = () => {
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
     >
       {theme === 'dark' ?
-        <SunIcon
-          className={
-            'text-yellow-300 hover:scale-110 transition-all duration-300'
-          }
-        />
-      : <MoonIcon
-          className={
-            'text-slate-400 hover:scale-110 transition-all duration-300'
-          }
-        />
-      }
+        <SunIcon className={'text-yellow-300'} />
+      : <MoonIcon className={'text-slate-400'} />}
     </button>
   );
 };
