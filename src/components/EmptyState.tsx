@@ -1,16 +1,20 @@
-import React from 'react';
 import { FilterStatus } from '../utils/FilterStatus';
+import { useTodoMemo } from '../hooks/useTodoMemo';
+import { useTodoStore } from '../store/useTodoStore';
 
-interface EmptyStateProps {
-  filter: FilterStatus;
-}
 
-export const EmptyState: React.FC<EmptyStateProps> = ({ filter }) => {
+
+export const EmptyState = () => {
+  const { todos, filter } = useTodoStore();
+  const { noTodos } = useTodoMemo(todos, filter);
+
   return (
-    <div className="px-6">
-      {filter === FilterStatus.All && 'No todos yet'}
-      {filter === FilterStatus.Active && 'No active todos'}
-      {filter === FilterStatus.Completed && 'No completed todos'}
-    </div>
+    noTodos && (
+      <div className="px-6 mb-4 text-todo-text dark:text-dark-text">
+        {filter === FilterStatus.All && 'No todos yet'}
+        {filter === FilterStatus.Active && 'No active todos'}
+        {filter === FilterStatus.Completed && 'No completed todos'}
+      </div>
+    )
   );
 };

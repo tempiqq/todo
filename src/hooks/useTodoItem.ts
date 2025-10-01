@@ -1,23 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Todo } from '../types/Todo';
+import { useTodoStore } from '../store/useTodoStore';
 
 export interface UseTodoItemProps {
   todo: Todo;
-  onSave: (id: number, newTitle: string) => Promise<void>;
-  onDelete: (id: number) => void;
-  onToggle: (id: number, completed: boolean) => void;
 }
 
-export const useTodoItem = ({
-  todo,
-  onSave,
-  onDelete,
-  onToggle,
-}: UseTodoItemProps) => {
-  
+export const useTodoItem = ({ todo }: UseTodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [isSaving, setIsSaving] = useState(false);
+  
+  const { handleSaveTodo, handleDeleteTodo, handleToggleTodo } = useTodoStore();
 
   const editInputRef = useRef<HTMLInputElement>(null);
 
@@ -39,12 +33,12 @@ export const useTodoItem = ({
     if (trimmedTitle && trimmedTitle !== todo.title) {
       try {
         setIsSaving(true);
-        await onSave(todo.id, trimmedTitle);
+        await handleSaveTodo(todo.id, trimmedTitle);
       } finally {
         setIsSaving(false);
       }
     } else if (!trimmedTitle) {
-      onDelete(todo.id);
+      handleDeleteTodo(todo.id);
     }
 
     setIsEditing(false);
@@ -63,8 +57,8 @@ export const useTodoItem = ({
     }
   };
 
-  const handleToggle = (checked: boolean) => onToggle(todo.id, checked);
-  const handleDelete = () => onDelete(todo.id);
+  const handleToggle = (checked: boolean) => handleToggleTodo(todo.id, checked);
+  const handleDelete = () => handleDeleteTodo(todo.id);
 
   return {
     isEditing,
@@ -72,9 +66,9 @@ export const useTodoItem = ({
     isSaving,
 
     editInputRef,
-    
+
     setEditTitle,
-    
+
     handleDoubleClick,
     handleSaveEdit,
     handleCancelEdit,

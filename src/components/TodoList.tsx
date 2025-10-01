@@ -1,24 +1,16 @@
-import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { containerVariants } from '../utils/ui/containerVariants';
 
-import type { Todo } from '../types/Todo';
 import { TodoItem } from './TodoItem';
 
-interface TodoListProps {
-  todos: Todo[];
-  onSave: (id: number, newTitle: string) => Promise<void>;
-  onDelete: (id: number) => void;
-  onToggle: (id: number, completed: boolean) => void;
-}
+import { useTodoStore } from '../store/useTodoStore';
+import { useTodoMemo } from '../hooks/useTodoMemo';
 
-export const TodoList: React.FC<TodoListProps> = ({
-  todos,
-  onSave,
-  onDelete,
-  onToggle,
-}) => {
-  
+export const TodoList = () => {
+  const { todos, filter } = useTodoStore();
+
+  const { visibleTodos } = useTodoMemo(todos, filter);
+
   return (
     <div className="p-6">
       <motion.div
@@ -29,13 +21,10 @@ export const TodoList: React.FC<TodoListProps> = ({
       >
         {/* анімація тудушек: без popLayout, щоб не штовхати сусідів */}
         <AnimatePresence>
-          {todos.map((todo) => (
+          {visibleTodos.map((todo) => (
             <TodoItem
               key={todo.id}
               todo={todo}
-              onToggle={onToggle}
-              onDelete={onDelete}
-              onSave={onSave}
             />
           ))}
         </AnimatePresence>

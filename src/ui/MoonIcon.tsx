@@ -14,7 +14,6 @@ export const MoonIcon = ({ className }: MoonIconProps) => {
       strokeWidth="1"
       strokeLinecap="round"
       strokeLinejoin="round"
-      // className={className}
       className={`
         hover:scale-110 
         transition-all 

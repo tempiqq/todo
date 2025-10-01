@@ -3,39 +3,29 @@ import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
 import type { Todo } from '../types/Todo';
-import { useTodoItem } from '../hooks/useTodoItem';
 import { CustomCheckbox } from '../ui/CustomCheckbox';
 import { DeleteButton } from '../ui/DeleteButton';
 import { SavingSpinner } from '../ui/SavingSpinner';
 
+import { useTodoItem } from '../hooks/useTodoItem';
+
 interface TodoItemProps {
   todo: Todo;
-  onToggle: (id: number, completed: boolean) => void;
-  onDelete: (id: number) => void;
-  onSave: (id: number, newTitle: string) => Promise<void>;
 }
 
-export const TodoItem: React.FC<TodoItemProps> = ({
-  todo,
-  onToggle,
-  onDelete,
-  onSave,
-}) => {
-  
+export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const {
     isEditing,
     editTitle,
     isSaving,
-
     editInputRef,
-
     setEditTitle,
-
     handleDoubleClick,
     handleSaveEdit,
     handleKeyDown,
+    handleToggle,
     handleDelete,
-  } = useTodoItem({ todo, onSave, onDelete, onToggle });
+  } = useTodoItem({ todo });
 
   return (
     // relative для спінера
@@ -49,8 +39,8 @@ export const TodoItem: React.FC<TodoItemProps> = ({
       <div
         className={clsx(
           'flex items-center p-4 border-b last:border-b-0 border-todo-border dark:border-dark-border rounded transition-colors hover:bg-todo-hover dark:hover:bg-todo-hover-dark',
-          todo.completed
-          ? 'bg-todo-completed dark:bg-todo-completed-dark'
+          todo.completed ?
+            'bg-todo-completed dark:bg-todo-completed-dark'
           : 'bg-todo-bg dark:bg-todo-bg-dark',
         )}
       >
@@ -63,7 +53,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
             id={`todo-${todo.id}`}
             type="checkbox"
             checked={todo.completed}
-            onChange={(e) => onToggle(todo.id, e.target.checked)}
+            onChange={(e) => handleToggle(e.target.checked)}
             disabled={isSaving}
             className="peer sr-only"
           />
@@ -82,12 +72,13 @@ export const TodoItem: React.FC<TodoItemProps> = ({
             onKeyDown={handleKeyDown}
             disabled={isSaving}
             className="ml-3 flex-1 px-2 py-1 border border-todo-border dark:border-dark-border rounded bg-white dark:bg-dark-surface
-             text-todo-text dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-todo-inputGlow disabled:opacity-60"
+              text-todo-text dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-todo-inputGlow disabled:opacity-60"
           />
         : <span
             onDoubleClick={handleDoubleClick}
             className={clsx('ml-3 flex-1', {
-              'line-through text-todo-muted dark:text-dark-muted': todo.completed,
+              'line-through text-todo-muted dark:text-dark-muted':
+                todo.completed,
               'text-todo-text dark:text-dark-text': !todo.completed,
             })}
           >

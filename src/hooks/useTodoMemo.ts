@@ -24,29 +24,14 @@ export const useTodoMemo = (todos: Todo[], filter?: FilterStatus) => {
     return todos.filter((todo) => !todo.completed).length;
   }, [todos]);
 
-  const hasCompleted = useMemo(() => {
-    return todos.some((todo) => todo.completed);
-  }, [todos]);
-
   const noTodos = useMemo(() => {
     return visibleTodos.length === 0;
   }, [visibleTodos]);
-
-  const showTodos = useMemo(() => {
-    return todos.length > 0;
-  }, [todos]);
-
-  const remainTodos = useMemo(() => {
-    return todos.filter((todo) => !todo.completed).length;
-  }, [todos]);
 
   return {
     visibleTodos,
     allCompleted,
     itemsLeft,
-    hasCompleted,
     noTodos,
-    showTodos,
-    remainTodos,
   };
 };
