@@ -1,4 +1,4 @@
-<a href="https://tempiqq.github.io/todo/" target="_blank">DEMO</a>
+!!! [DEMO](https://tempiqq.github.io/todo/) !!!
 
 ## Технології
 
