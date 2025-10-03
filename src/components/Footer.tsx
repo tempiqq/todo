@@ -1,6 +1,6 @@
-import React from 'react';
 import { FooterFilterButtons } from '../ui/Footer/FooterFilterButtons';
 import { ClearCompletedButton } from '../ui/Footer/ClearCompletedButton';
+
 import { useTodoStore } from '../store/useTodoStore';
 import { useTodoMemo } from '../hooks/useTodoMemo';
 

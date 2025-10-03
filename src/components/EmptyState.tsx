@@ -2,8 +2,6 @@ import { FilterStatus } from '../utils/FilterStatus';
 import { useTodoMemo } from '../hooks/useTodoMemo';
 import { useTodoStore } from '../store/useTodoStore';
 
-
-
 export const EmptyState = () => {
   const { todos, filter } = useTodoStore();
   const { noTodos } = useTodoMemo(todos, filter);

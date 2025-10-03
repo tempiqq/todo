@@ -1,8 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import type { Todo } from '../types/Todo';
+
 import { CustomCheckbox } from '../ui/CustomCheckbox';
 import { DeleteButton } from '../ui/DeleteButton';
 import { SavingSpinner } from '../ui/SavingSpinner';
@@ -13,7 +13,7 @@ interface TodoItemProps {
   todo: Todo;
 }
 
-export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+export const TodoItem = ({ todo }: TodoItemProps) => {
   const {
     isEditing,
     editTitle,
