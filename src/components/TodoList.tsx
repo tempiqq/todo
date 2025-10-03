@@ -19,7 +19,7 @@ export const TodoList = () => {
         variants={containerVariants}
         className="border border-todo-border dark:border-dark-border shadow-lg rounded bg-todo-bg dark:bg-todo-bg-dark"
       >
-        {/* анімація тудушек: без popLayout, щоб не штовхати сусідів */}
+        {/* анімація тудушек */}
         <AnimatePresence>
           {visibleTodos.map((todo) => (
             <TodoItem
