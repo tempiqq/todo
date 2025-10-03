@@ -1,3 +1,5 @@
+<a href="https://tempiqq.github.io/todo/" target="_blank">DEMO</a>
+
 ## Технології
 
 - **React** — побудова інтерфейсу користувача
