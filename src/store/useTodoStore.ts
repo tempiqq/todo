@@ -104,7 +104,9 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     set({
       errorMessage: ErrorMessage.DEFAULT_ERROR,
       todos: prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, completed } : todo,
+        todo.id === id 
+          ? { ...todo, completed } 
+          : todo,
       ),
     });
 
