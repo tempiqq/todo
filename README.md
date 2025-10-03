@@ -1,8 +1,17 @@
-Tech Stack: React, TypeScript, Tailwind, REST API, Axios, Framer Motion
+## Технології
 
-Responsibilities:
-– Built app from scratch with modular architecture
-– Implemented task CRUD, filtering, status updates
-– Used custom hooks for logic reuse
-– Separated API logic into modules
+- **React** — побудова інтерфейсу користувача
+- **TypeScript** — типізація коду
+- **Tailwind CSS** — стилізація компонентів
+- **REST API** — взаємодія з бекендом
+- **Axios** — HTTP-запити
+- **Framer Motion** — анімації
 
+## Інструкція з користування
+
+- Додавайте нові задачі через форму введення.
+- Фільтруйте задачі за статусом (активні, виконані).
+- Оновлюйте статус задач (виконано/невиконано).
+- Видаляйте або редагуйте задачі за потреби.
+
+Застосунок зберігає дані через REST API, забезпечуючи актуальність інформації.
