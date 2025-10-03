@@ -205,4 +205,8 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
       set({ errorMessage: ErrorMessage.UPDATE_TODO_FAILED, todos: prevTodos });
     }
   },
+
 }));
+
+//прибираю useEffect в апці
+useTodoStore.getState().loadTodos();

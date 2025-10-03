@@ -8,7 +8,6 @@ import { useTodoMemo } from '../hooks/useTodoMemo';
 
 export const TodoList = () => {
   const { todos, filter } = useTodoStore();
-
   const { visibleTodos } = useTodoMemo(todos, filter);
 
   return (
