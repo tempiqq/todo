@@ -1,38 +1,33 @@
-import {
-  closestCenter,
-  DndContext,
-  type DragEndEvent,
-  type DragOverEvent,
-  type DragStartEvent,
-  type SensorDescriptor,
-  type UniqueIdentifier,
-} from '@dnd-kit/core';
+import { closestCenter, DndContext } from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { DragAndDropOverlayComponent } from './DragAndDropOverlayComponent';
 import type { Todo } from '../../types/Todo';
+import { useTodoDnD } from '../../hooks/useTodoDnD';
+import { useTodoStore } from '../../store/useTodoStore';
 
 interface DragAndDropWrapperComponentProps {
   children: React.ReactNode;
-  sensors: SensorDescriptor<object>[];
-  handleDragStart: (event: DragStartEvent) => void;
-  handleDragEnd: (event: DragEndEvent) => void;
-  handleDragOver: (event: DragOverEvent) => void;
-  items: UniqueIdentifier[];
-  activeTodo: Todo;
+  visibleTodos: Todo[];
 }
 
 export const DragAndDropWrapperComponent = ({
   children,
-  sensors,
-  handleDragEnd,
-  handleDragOver,
-  handleDragStart,
-  items,
-  activeTodo,
+  visibleTodos,
 }: DragAndDropWrapperComponentProps) => {
+  const { todos, reorderTodos } = useTodoStore();
+
+  const {
+    sensors,
+    items,
+    activeTodo,
+    handleDragStart,
+    handleDragEnd,
+    handleDragOver,
+  } = useTodoDnD({ todos, visibleTodos, reorderTodos });
+
   return (
     <DndContext
       sensors={sensors}
