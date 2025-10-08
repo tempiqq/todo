@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useSortable } from '@dnd-kit/sortable';
 
-
 import type { Todo } from '../types/Todo';
 
 import { CustomCheckbox } from '../ui/CustomCheckbox';
@@ -31,21 +30,13 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
   } = useTodoItem({ todo });
 
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({id: todo.id});
-
-  // const style: React.CSSProperties = {
-  //   transform: CSS.Transform.toString(transform),
-  //   transition,
-  //   opacity: isDragging ? 0.6 : 1,
-  //   cursor: 'grab',
-  // };
-
   const style = getSortableStyles({transform, transition, isDragging})
 
   return (
     // relative для спінера
     <motion.div
       className="relative"
-      initial={{ opacity: 0, height: 0, y: 50 }} //анімація тудушек
+      initial={{ opacity: 0, height: 0, y: 50 }} 
       animate={{ opacity: 1, height: 'auto', y: 0 }}
       exit={{ opacity: 0, height: 0, x: -100, transition: { duration: 0.3 } }}
       layout
@@ -57,9 +48,9 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
       <div
         className={clsx(
           'flex items-center p-4 border-b last:border-b-0 border-todo-border dark:border-dark-border rounded transition-colors hover:bg-todo-hover dark:hover:bg-todo-hover-dark',
-          todo.completed ?
-            'bg-todo-completed dark:bg-todo-completed-dark'
-          : 'bg-todo-bg dark:bg-todo-bg-dark',
+          todo.completed
+            ? 'bg-todo-completed dark:bg-todo-completed-dark'
+            : 'bg-todo-bg dark:bg-todo-bg-dark',
         )}
       >
         {/* чекбокс */}
