@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { useSortable } from '@dnd-kit/sortable';
+
 
 import type { Todo } from '../types/Todo';
 
@@ -8,6 +10,7 @@ import { DeleteButton } from '../ui/DeleteButton';
 import { SavingSpinner } from '../ui/SavingSpinner';
 
 import { useTodoItem } from '../hooks/useTodoItem';
+import { getSortableStyles } from '../utils/ui/getSortableStyles';
 
 interface TodoItemProps {
   todo: Todo;
@@ -27,6 +30,17 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
     handleDelete,
   } = useTodoItem({ todo });
 
+  const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({id: todo.id});
+
+  // const style: React.CSSProperties = {
+  //   transform: CSS.Transform.toString(transform),
+  //   transition,
+  //   opacity: isDragging ? 0.6 : 1,
+  //   cursor: 'grab',
+  // };
+
+  const style = getSortableStyles({transform, transition, isDragging})
+
   return (
     // relative для спінера
     <motion.div
@@ -35,6 +49,10 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
       animate={{ opacity: 1, height: 'auto', y: 0 }}
       exit={{ opacity: 0, height: 0, x: -100, transition: { duration: 0.3 } }}
       layout
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
     >
       <div
         className={clsx(

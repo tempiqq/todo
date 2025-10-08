@@ -28,6 +28,8 @@ interface TodoStore {
   handleDeleteAllCompletedTodos: () => Promise<void>;
   handleSaveTodo: (id: number, newTitle: string) => Promise<void>;
   handleToggleAll: () => Promise<void>;
+
+  reorderTodos: (orderedIds: number[]) => void;
 }
 
 export const useTodoStore = create<TodoStore>((set, get) => ({
@@ -43,7 +45,6 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
   setErrorMessage: (errorMessage) => set({ errorMessage }),
   setNewTodoTitle: (newTodoTitle) => set({ newTodoTitle }),
 
-  // CRUD
   loadTodos: async () => {
     try {
       set({ errorMessage: ErrorMessage.DEFAULT_ERROR, isLoading: true });
@@ -104,9 +105,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     set({
       errorMessage: ErrorMessage.DEFAULT_ERROR,
       todos: prevTodos.map((todo) =>
-        todo.id === id 
-          ? { ...todo, completed } 
-          : todo,
+        todo.id === id ? { ...todo, completed } : todo,
       ),
     });
 
@@ -116,7 +115,6 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
       set((state) => ({
         todos: state.todos.map((todo) => (todo.id === id ? updatedTodo : todo)),
       }));
-
     } catch {
       // ролбек оптимістичного оновлення
       set({ errorMessage: ErrorMessage.UPDATE_TODO_FAILED, todos: prevTodos });
@@ -134,7 +132,7 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     try {
       await todoServices.deleteTodo(id);
     } catch {
-      // ролбек 
+      // ролбек
       set({ errorMessage: ErrorMessage.DELETE_TODO_FAILED, todos: prevTodos });
     }
   },
@@ -164,19 +162,18 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     set({
       errorMessage: ErrorMessage.DEFAULT_ERROR,
       todos: prevTodos.map((todo) =>
-        todo.id === id 
-          ? { ...todo, title: newTitle } 
-          : todo,
+        todo.id === id ? { ...todo, title: newTitle } : todo,
       ),
     });
 
     try {
-      const updatedTodo = await todoServices.updateTodo(id, { title: newTitle, });
+      const updatedTodo = await todoServices.updateTodo(id, {
+        title: newTitle,
+      });
 
       set((state) => ({
         todos: state.todos.map((todo) => (todo.id === id ? updatedTodo : todo)),
       }));
-
     } catch {
       // ролбек назви
       set({ errorMessage: ErrorMessage.UPDATE_TODO_FAILED, todos: prevTodos });
@@ -208,6 +205,18 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
     }
   },
 
+  //сортування тудушек для DnD
+  reorderTodos: (orderedIds: number[]) => {
+    const currentById = new Map(get().todos.map((todo) => [todo.id, todo] as const));
+
+    const reordered: Todo[] = orderedIds
+      .map((id) => currentById.get(id))
+      .filter((todo): todo is Todo => Boolean(todo));
+
+    const untouched = get().todos.filter((todo) => !orderedIds.includes(todo.id));
+
+    set({ todos: [...reordered, ...untouched] });
+  },
 }));
 
 //прибираю useEffect в апці
