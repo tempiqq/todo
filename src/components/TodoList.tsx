@@ -12,8 +12,6 @@ export const TodoList = () => {
   const { todos, filter } = useTodoStore();
   const { visibleTodos } = useTodoMemo(todos, filter);
 
-
-
   return (
     <div className="p-6">
       <motion.div
