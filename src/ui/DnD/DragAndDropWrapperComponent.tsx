@@ -1,10 +1,12 @@
-import { closestCenter, DndContext } from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { DragAndDropOverlayComponent } from './DragAndDropOverlayComponent';
+import { closestCenter, DndContext } from '@dnd-kit/core';
+
 import type { Todo } from '../../types/Todo';
+import { DragAndDropOverlayComponent } from './DragAndDropOverlayComponent';
+
 import { useTodoDnD } from '../../hooks/useTodoDnD';
 import { useTodoStore } from '../../store/useTodoStore';
 

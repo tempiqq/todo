@@ -1,5 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { containerVariants } from '../utils/ui/containerVariants';
+import { AnimatePresence } from 'framer-motion';
 
 import { TodoItem } from './TodoItem';
 
@@ -7,6 +6,7 @@ import { useTodoStore } from '../store/useTodoStore';
 import { useTodoMemo } from '../hooks/useTodoMemo';
 
 import { DragAndDropWrapperComponent } from '../ui/DnD/DragAndDropWrapperComponent';
+import { MotionWrapper } from '../ui/MotionWrapper';
 
 export const TodoList = () => {
   const { todos, filter } = useTodoStore();
@@ -14,12 +14,7 @@ export const TodoList = () => {
 
   return (
     <div className="p-6">
-      <motion.div
-        initial="hidden"
-        animate="show"
-        variants={containerVariants}
-        className="border border-todo-border dark:border-dark-border shadow-lg rounded bg-todo-bg dark:bg-todo-bg-dark"
-      >
+      <MotionWrapper>
         <DragAndDropWrapperComponent visibleTodos={visibleTodos}>
           <AnimatePresence>
             {visibleTodos.map((todo) => (
@@ -30,7 +25,8 @@ export const TodoList = () => {
             ))}
           </AnimatePresence>
         </DragAndDropWrapperComponent>
-      </motion.div>
+      </MotionWrapper>
+      
     </div>
   );
 };
