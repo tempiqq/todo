@@ -1,10 +1,9 @@
 import { AnimatePresence } from 'framer-motion';
 
-import { TodoItem } from './TodoItem';
-
 import { useTodoStore } from '../store/useTodoStore';
 import { useTodoMemo } from '../hooks/useTodoMemo';
 
+import { TodoItem } from './TodoItem';
 import { DragAndDropWrapperComponent } from '../ui/DnD/DragAndDropWrapperComponent';
 import { MotionWrapper } from '../ui/MotionWrapper';
 
