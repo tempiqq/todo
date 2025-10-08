@@ -5,6 +5,7 @@
 - **React** 
 - **TypeScript**
 - **Tailwind CSS** — стилізація компонентів
+- **Zustand** — робота з глобальним станом
 - **REST API** — взаємодія з бекендом
 - **Axios** — HTTP-запити
 - **Framer Motion** — анімації
