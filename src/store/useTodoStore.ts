@@ -207,13 +207,17 @@ export const useTodoStore = create<TodoStore>((set, get) => ({
 
   //сортування тудушек для DnD
   reorderTodos: (orderedIds: number[]) => {
-    const currentById = new Map(get().todos.map((todo) => [todo.id, todo] as const));
+    const currentById = new Map(
+      get().todos.map((todo) => [todo.id, todo] as const),
+    ); //створюємо мапу зі стейту туду=>айді+туду (замість метода todos.find)
 
     const reordered: Todo[] = orderedIds
       .map((id) => currentById.get(id))
       .filter((todo): todo is Todo => Boolean(todo));
 
-    const untouched = get().todos.filter((todo) => !orderedIds.includes(todo.id));
+    const untouched = get().todos.filter(
+      (todo) => !orderedIds.includes(todo.id),
+    );
 
     set({ todos: [...reordered, ...untouched] });
   },
